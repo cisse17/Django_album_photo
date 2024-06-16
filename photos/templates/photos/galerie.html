@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galerie</title>
+     <!-- tailwind -->
+     <script src="https://cdn.tailwindcss.com"></script> 
+     <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <style>
+    .image-thumbnail {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .list-group-item a {
+        text-decoration: none;
+        color: black;
+
+    }
+    .btn-btn {
+      background-color: #38A89D;
+      text-align: center;
+      color: white;
+      padding: 5px;
+      border-radius: 2px;
+    }
+    .btn-btn:hover{
+      background-color: black;
+    }
+
+ 
+  </style>
+</head>
+<body>
+<!-- header nav  tailwind -->
+<nav class="flex items-center justify-between flex-wrap bg-teal-700 p-6">
+  <div class="flex flex-row flex-no-shrink text-white mr-6">
+    <span class="font-semibold text-xl tracking-tight ml-20"> | BMC </span> 
+    <span class="font-light  ml-20">Bienvenu sur votre <strong>Galerie photo souvenirs de vancances.</strong>  Ajouter vos photos de souvenirs de vancaces ou personnelles<br>en donnant une description de la photo. (Images utilisées en guise d'illustration, aucun droit sur les images) </span>
+
+  </div>
+
+</nav>
+
+<!-- end heder nav tailwind -->
+
+
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card" >
+                    <div class="card-header">
+                        Categories
+                    </div>
+
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item">
+                       <a href="{% url 'galerie' %}"> Toutes les photos </a>
+                      </li>
+
+                      {% for categorie in categories %}
+                      <li class="list-group-item">
+                        <a href="{% url 'galerie' %}?categorie={{categorie.name}}">{{ categorie.name }}</a>
+                      </li>
+                      {% endfor %}
+
+                        <a href="{% url 'ajouter_photo' %}" class="btn-btn  btn-block btn-sm">Ajouter une photo</a>
+                    </ul>
+                  </div>
+            </div>
+
+
+            <div class="col-md-9">
+                <div class="row">
+
+                    {% for photo in photos %}
+                    <div class="col-md-4">
+                        <div class="card mb-2">
+                        
+                            <img class="image-thumbnail"
+                             src="{{ photo.image.url }}" class="card-img-top" alt="...">
+                            
+                             <div class="card-body">
+                              <p>Categorie : {{ photo.categorie.name }} </p>
+                            </div>
+                            <a href="{% url 'photo' photo.id %}" class="btn-btn btn-sm m-1"> voir</a>
+
+                        </div>
+                    </div>
+                    {% empty %}
+                    <h2>Photo vide ...</h2>
+                    {% endfor %}
+                   
+
+                </div>
+
+            </div>
+             
+        </div>
+    </div>
+    
+</body>
+</html>
