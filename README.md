@@ -1,0 +1,1 @@
+# Django_album_photo
